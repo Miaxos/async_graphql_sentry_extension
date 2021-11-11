@@ -1,0 +1,39 @@
+[package]
+name = "async-graphql-extension-sentry"
+version = "1.0.4"
+authors = ["Anthony Griffon <an.griffon@gmail.com>"]
+description = "An async_graphql extension to send traces & metrics to Sentry"
+readme = "README.md"
+repository = "https://github.com/async-graphql/async_graphql_apollo_studio_extension"
+documentation = "https://docs.rs/async-graphql-extension-sentry"
+license = "MIT"
+keywords = ["async_graphql", "async", "graphql", "sentry", "tracing"]
+categories = ["network-programming", "asynchronous"]
+edition = "2018"
+
+[features]
+default = []
+tokio-comp = ["tokio"]
+async-std-comp = ["async-std"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+async-graphql = {version = "2", features = ["tracing"] }
+tracing = "0.1.*"
+tracing-futures = { version = "0.2.5", default-features = false, features = ["tokio", "futures-03", "std"] }
+futures = "0.3.*"                 # An implementation of futures and streams featuring zero allocations, composability, and itera…
+chrono = "0.4"
+reqwest = { version = "0.11", features = ["json"] }
+async-trait = "0.1.*" 
+serde_json = "1"                     # A JSON serialization file format
+sha2 = "0.9"                # Pure Rust implementation of the SHA-2 hash function family including SHA-224, SHA-256, SHA-384, a…
+anyhow = "1"               # Flexible concrete Error type built on std::error::Error
+uuid = { version = "0.8.*", features = ["v4"] }                  # A library to generate and parse UUIDs.
+sentry = { git = "https://github.com/getsentry/sentry-rust.git", rev = "bf71bf43092790c115664cd25ba695e9d66ab032" }
+
+# Non-feature optional dependencies
+tokio = { version = "1", features = ["full"], optional = true }
+async-std = { version = "1.10", optional = true }
+
+[patch.crates-io]
+sentry-types =  { path = "../sentry-rust/sentry-types/" }
